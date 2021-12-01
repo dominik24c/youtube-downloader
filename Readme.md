@@ -9,8 +9,14 @@ python3.8 is required to check your version, enter the following command in the 
 ```bash
 python3 --version
 ```
-### 2. Run app
+### 3. Run app
 ```bash
 python3 main.py
 ```
+
+### 4. Build app
+```bash
+pyinstaller --onefile --icon=yt-icon.png --name=yt_downloader main.py
+```
+
 
