@@ -1,5 +1,6 @@
 from pytube import YouTube
-from pytube.exceptions import RegexMatchError, VideoUnavailable
+from pytube.exceptions import RegexMatchError, \
+    VideoUnavailable
 
 VIDEO_LINK_ERR_NOT_VALID_LINK = 'Video link is not valid'
 VIDEO_LINK_ERR_NOT_UNAVAILABLE = 'Video is not unavailable'
@@ -7,15 +8,28 @@ VIDEO_LINK_ERR_UNKNOWN_ERROR = 'Unknown error'
 
 
 class YoutubeDownloader:
-    def __init__(self, video_link: str):
-        self._video_link: str = video_link
+    def __init__(self):
         self._downloader: YouTube
-        self._error: str
+        self._video_link = None
+        self._error = None
+
+    @property
+    def error(self) -> str:
+        return self._error
+
+    @property
+    def video_link(self) -> str:
+        return self._video_link
+
+    @video_link.setter
+    def video_link(self, value: str):
+        self._video_link = value
 
     def validate_video_link(self) -> None:
         try:
             self._downloader = YouTube(self._video_link)
-            print(self._downloader.title)
+            self._downloader.check_availability()
+            self._error = None
         except RegexMatchError:
             self._error = VIDEO_LINK_ERR_NOT_VALID_LINK
         except VideoUnavailable:
