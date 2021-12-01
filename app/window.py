@@ -1,4 +1,3 @@
-import sys
 from tkinter import *
 from typing import Dict
 
@@ -20,10 +19,12 @@ class Window(Tk):
         self.dir_path: str
 
     def init_window(self) -> None:
-        print(sys.argv)
-        print(len(sys.argv))
         self.title(WINDOW_TITLE)
-        self.geometry(WINDOW_GEOMETRY)
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        x = screen_height // 2 - WINDOW_HEIGHT // 2
+        y = screen_width // 2 - WINDOW_WIDTH // 2
+        self.geometry(f'{WINDOW_GEOMETRY}+{y}+{x}')
 
         if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
             img = PhotoImage(file=WINDOW_ICON)
