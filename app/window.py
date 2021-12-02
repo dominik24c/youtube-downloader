@@ -2,11 +2,9 @@ import sys
 from tkinter import *
 from typing import Dict
 
+from pages import PAGES, ValidatorLinkPage
 from settings import *
 from yt_downloader import YoutubeDownloader
-from .directory_browser_page import DirectoryBrowserPage
-from .downloader_page import DownloaderPage
-from .validator_link_page import ValidatorLinkPage
 
 
 class Window(Tk):
@@ -43,7 +41,7 @@ class Window(Tk):
         self.container.grid_columnconfigure(0, weight=1)
 
     def init_frames(self) -> None:
-        for Page in (DirectoryBrowserPage, ValidatorLinkPage, DownloaderPage):
+        for Page in PAGES:
             frame = Page(self.container, self, bg='red')
             self.frames[Page.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")

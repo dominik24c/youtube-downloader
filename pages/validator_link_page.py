@@ -1,13 +1,15 @@
 from tkinter import *
 
-from .buttons import ButtonFactory
-from .utils import threading_click_handler
+from app.buttons import ButtonFactory
+from app.utils import threading_click_handler
+from .base_page import BasePage
 
 
-class ValidatorLinkPage(Frame):
+class ValidatorLinkPage(BasePage):
     def __init__(self, parent: Frame, root, **kwargs):
-        super().__init__(master=parent, **kwargs)
-        self.root = root
+        super().__init__(parent, root, **kwargs)
+
+    def init_ui(self):
         label = Label(self, text='Enter Link:')
         label.pack()
 
@@ -24,7 +26,7 @@ class ValidatorLinkPage(Frame):
         from .directory_browser_page import DirectoryBrowserPage
         self.next_btn = ButtonFactory.create_button(self, text='Next',
                                                     command=lambda:
-                                                    root.show_frame(DirectoryBrowserPage.__name__),
+                                                    self.root.show_frame(DirectoryBrowserPage.__name__),
                                                     is_packed=False)
 
     def on_changed_entry_field(self, *args, **kwargs) -> None:

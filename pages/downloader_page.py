@@ -1,14 +1,16 @@
 from tkinter import *
 from tkinter.ttk import Progressbar
 
-from .buttons import ButtonFactory
-from .utils import threading_click_handler
+from app.buttons import ButtonFactory
+from app.utils import threading_click_handler
+from .base_page import BasePage
 
 
-class DownloaderPage(Frame):
+class DownloaderPage(BasePage):
     def __init__(self, parent: Frame, root, **kwargs):
-        super().__init__(master=parent, **kwargs)
-        self.root = root
+        super().__init__(parent, root, **kwargs)
+
+    def init_ui(self):
         title_label = Label(self, text='Click "Download" button to start downloading file')
         title_label.pack()
 

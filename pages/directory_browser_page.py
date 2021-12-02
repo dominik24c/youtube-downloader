@@ -1,14 +1,15 @@
 from tkinter import *
 from tkinter import filedialog
 
-from .buttons import ButtonFactory
+from app.buttons import ButtonFactory
+from .base_page import BasePage
 
 
-class DirectoryBrowserPage(Frame):
+class DirectoryBrowserPage(BasePage):
     def __init__(self, parent: Frame, root, **kwargs):
-        super().__init__(master=parent, **kwargs)
-        self.root = root
+        super().__init__(parent, root, **kwargs)
 
+    def init_ui(self):
         label = Label(self, text='Choose directory path:')
         label.pack()
 

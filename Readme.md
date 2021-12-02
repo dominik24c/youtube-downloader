@@ -19,4 +19,9 @@ python3 main.py
 pyinstaller --onefile --icon=yt-icon.png --name=yt_downloader main.py
 ```
 
+### 5. Development app
+if you want add next page create new file in 'pages' package,
+create class, which it must inherit from BasePage class
+and import this class to ```pages/__init__.py``` file and append 
+to PAGES tuple.
 
