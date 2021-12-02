@@ -1,3 +1,4 @@
+import sys
 from tkinter import *
 from typing import Dict
 
