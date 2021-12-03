@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
 
-from app.buttons import ButtonFactory
 from .base_page import BasePage
 
 
@@ -10,19 +9,23 @@ class DirectoryBrowserPage(BasePage):
         super().__init__(parent, root, **kwargs)
 
     def init_ui(self):
+        row_weights = (1, 1, 1, 12)
+        column_weights = (1, 4, 1)
+        self.init_gird(row_weights, column_weights)
+
         label = Label(self, text='Choose directory path:')
-        label.pack()
+        label.grid(row=0, column=0, padx=6, pady=10, sticky=W)
 
-        self.directory_path_entry = Entry(self, width=50, state='disabled')
-        self.directory_path_entry.pack()
+        self.directory_path_entry = Entry(self, state='disabled')
+        self.directory_path_entry.grid(row=1, column=0, columnspan=3, padx=10, pady=10, sticky=EW)
 
-        self.browse_btn = ButtonFactory.create_button(self, text='Browse', command=self.browse_handler)
+        self.browse_btn = Button(self, text='Browse', command=self.browse_handler)
+        self.browse_btn.grid(row=2, column=2, padx=10, pady=5, sticky=E)
         from .downloader_page import DownloaderPage
         from .validator_link_page import ValidatorLinkPage
-        self.next_btn = ButtonFactory.create_button(self, text='Next',
-                                                    command=lambda: root.show_frame(DownloaderPage.__name__),
-                                                    is_packed=False)
-        ButtonFactory.create_button(self, text='Back', command=lambda: root.show_frame(ValidatorLinkPage.__name__))
+        self.next_btn = Button(self, text='Next', command=lambda: self.root.show_frame(DownloaderPage.__name__))
+        self.back_btn = Button(self, text='Back', command=lambda: self.root.show_frame(ValidatorLinkPage.__name__))
+        self.back_btn.grid(row=3, column=0, padx=10, pady=10, sticky=SW)
 
     def browse_handler(self) -> None:
         self.root.filename = filedialog.askdirectory()
@@ -33,4 +36,4 @@ class DirectoryBrowserPage(BasePage):
         if self.root.filename is None or self.root.filename == '':
             self.next_btn.forget()
         else:
-            self.next_btn.pack()
+            self.next_btn.grid(row=3, column=2, padx=10, pady=10, sticky=SE)

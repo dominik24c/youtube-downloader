@@ -1,6 +1,5 @@
 from tkinter import *
 
-from app.buttons import ButtonFactory
 from app.utils import threading_click_handler
 from .base_page import BasePage
 
@@ -10,24 +9,25 @@ class ValidatorLinkPage(BasePage):
         super().__init__(parent, root, **kwargs)
 
     def init_ui(self):
-        label = Label(self, text='Enter Link:')
-        label.pack()
+        column_weights = (1, 4, 1)
+        row_weights = (1, 1, 8)
+        self.init_gird(row_weights, column_weights)
+
+        Label(self, text='Enter Link:').grid(row=0, column=0, sticky=W, pady=10, padx=10)
 
         self.yt_link = StringVar()
         self.yt_link.trace('w', self.on_changed_entry_field)
-        yt_link_entry = Entry(self, width=50, textvariable=self.yt_link)
+        yt_link_entry = Entry(self, textvariable=self.yt_link)
         yt_link_entry.bind('<Control-KeyRelease-a>', self.ctrl_a_handler)
         yt_link_entry.bind('<Control-a>', self.ctrl_a_handler)
-        yt_link_entry.pack()
+        yt_link_entry.grid(row=0, column=1, columnspan=2, pady=10, padx=10, sticky=EW)
         self.response_label = Label(self)
         self.validator_btn = Button(self, text='Validate link', command=self.validate_link)
-        self.validator_btn.pack()
+        self.validator_btn.grid(row=1, column=2, sticky=E, pady=10, padx=10)
 
         from .directory_browser_page import DirectoryBrowserPage
-        self.next_btn = ButtonFactory.create_button(self, text='Next',
-                                                    command=lambda:
-                                                    self.root.show_frame(DirectoryBrowserPage.__name__),
-                                                    is_packed=False)
+        self.next_btn = Button(self, text='Next', command=lambda:
+        self.root.show_frame(DirectoryBrowserPage.__name__))
 
     def on_changed_entry_field(self, *args, **kwargs) -> None:
         self.next_btn.forget()
@@ -38,15 +38,14 @@ class ValidatorLinkPage(BasePage):
         self.root.yt_downloader.video_link = self.yt_link.get()
         self.root.yt_downloader.validate_video_link()
 
+        max_row, max_column = self.grid_size()
+
         if self.root.yt_downloader.error is not None:
-            # print(self.root.yt_downloader.error)
             self.response_label['text'] = f'{self.root.yt_downloader.error}!'
-            self.response_label.pack()
         else:
-            self.next_btn.pack()
             self.response_label['text'] = f'Your Link is valid. Click "Next" button.'
-            self.response_label.pack()
-            # self.response_label.forget()
+            self.next_btn.grid(row=max_row, column=2, sticky=SE, padx=10, pady=10)
+        self.response_label.grid(row=1, column=1, sticky=W, pady=10, padx=10)
 
     def ctrl_a_handler(self, event: Event) -> None:
         event.widget.select_range(0, 'end')

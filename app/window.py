@@ -33,6 +33,7 @@ class Window(Tk):
             print('running in a normal Python process')
 
         self.tk.call('wm', 'iconphoto', self._w, img)
+        self.resizable(False, False)
 
     def init_container(self) -> None:
         self.container = Frame(self)
@@ -42,7 +43,7 @@ class Window(Tk):
 
     def init_frames(self) -> None:
         for Page in PAGES:
-            frame = Page(self.container, self, bg='red')
+            frame = Page(self.container, self)
             self.frames[Page.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
