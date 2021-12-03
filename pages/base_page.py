@@ -9,5 +9,10 @@ class BasePage(Frame):
         self.init_ui()
 
     @abc.abstractmethod
-    def init_ui(self):
+    def init_ui(self) -> None:
         raise NotImplemented
+
+    def init_gird(self, row_weights: tuple, column_weights: tuple) -> None:
+        for index, (c, r) in enumerate(zip(column_weights, row_weights)):
+            self.columnconfigure(index, weight=c)
+            self.rowconfigure(index, weight=r)
