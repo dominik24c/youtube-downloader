@@ -24,7 +24,7 @@ class DirectoryBrowserPage(BasePage):
         from .downloader_page import DownloaderPage
         from .link_validator_page import LinkValidatorPage
         self.next_btn = Button(self, text='Next', command=lambda: self.root.show_frame(DownloaderPage.__name__))
-        self.back_btn = Button(self, text='Back', command=lambda: self.root.show_frame(ValidatorLinkPage.__name__))
+        self.back_btn = Button(self, text='Back', command=lambda: self.root.show_frame(LinkValidatorPage.__name__))
         self.back_btn.grid(row=3, column=0, padx=10, pady=10, sticky=SW)
 
     def browse_handler(self) -> None:

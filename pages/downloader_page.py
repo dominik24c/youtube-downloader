@@ -41,6 +41,4 @@ class DownloaderPage(BasePage):
         self.back_to_beginning_page_btn.grid(row=2, column=0, padx=10, pady=10, sticky=SW)
 
     def back_to_first_page(self) -> None:
-        from . import ValidatorLinkPage
-        self.root.show_frame(ValidatorLinkPage.__name__)
         self.root.init_frames()  # reset/recreate frames
