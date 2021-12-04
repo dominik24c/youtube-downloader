@@ -1,5 +1,5 @@
 from .directory_browser_page import DirectoryBrowserPage
 from .downloader_page import DownloaderPage
-from .validator_link_page import ValidatorLinkPage
+from .link_validator_page import LinkValidatorPage
 
-PAGES = (DirectoryBrowserPage, ValidatorLinkPage, DownloaderPage)
+PAGES = (DirectoryBrowserPage, LinkValidatorPage, DownloaderPage)

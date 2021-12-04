@@ -2,7 +2,7 @@ import sys
 from tkinter import *
 from typing import Dict
 
-from pages import PAGES, ValidatorLinkPage
+from pages import PAGES, LinkValidatorPage
 from settings import *
 from yt_downloader import YoutubeDownloader
 
@@ -47,7 +47,7 @@ class Window(Tk):
             self.frames[Page.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame(ValidatorLinkPage.__name__)
+        self.show_frame(LinkValidatorPage.__name__)
 
     def show_frame(self, page_name: str) -> None:
         self.frames[page_name].tkraise()

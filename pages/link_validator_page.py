@@ -4,14 +4,12 @@ from app.utils import threading_click_handler
 from .base_page import BasePage
 
 
-class ValidatorLinkPage(BasePage):
+class LinkValidatorPage(BasePage):
     def __init__(self, parent: Frame, root, **kwargs):
         super().__init__(parent, root, **kwargs)
 
-    def init_ui(self):
-        column_weights = (1, 4, 1)
-        row_weights = (1, 1, 8)
-        self.init_gird(row_weights, column_weights)
+    def init_ui(self)->None:
+        self.init_gird((1, 1, 10), (1, 4, 1))
 
         Label(self, text='Enter Link:').grid(row=0, column=0, sticky=W, pady=10, padx=10)
 
@@ -23,7 +21,7 @@ class ValidatorLinkPage(BasePage):
         yt_link_entry.grid(row=0, column=1, columnspan=2, pady=10, padx=10, sticky=EW)
         self.response_label = Label(self)
         self.validator_btn = Button(self, text='Validate link', command=self.validate_link)
-        self.validator_btn.grid(row=1, column=2, sticky=E, pady=10, padx=10)
+        self.validator_btn.grid(row=1, column=2, sticky=E, pady=5, padx=10)
 
         from .directory_browser_page import DirectoryBrowserPage
         self.next_btn = Button(self, text='Next', command=lambda:

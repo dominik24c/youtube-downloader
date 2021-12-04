@@ -22,7 +22,7 @@ class DirectoryBrowserPage(BasePage):
         self.browse_btn = Button(self, text='Browse', command=self.browse_handler)
         self.browse_btn.grid(row=2, column=2, padx=10, pady=5, sticky=E)
         from .downloader_page import DownloaderPage
-        from .validator_link_page import ValidatorLinkPage
+        from .link_validator_page import LinkValidatorPage
         self.next_btn = Button(self, text='Next', command=lambda: self.root.show_frame(DownloaderPage.__name__))
         self.back_btn = Button(self, text='Back', command=lambda: self.root.show_frame(ValidatorLinkPage.__name__))
         self.back_btn.grid(row=3, column=0, padx=10, pady=10, sticky=SW)
