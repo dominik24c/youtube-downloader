@@ -1,3 +1,4 @@
+import os.path
 from tkinter import Label
 from tkinter.ttk import Progressbar
 
@@ -44,12 +45,13 @@ class YoutubeDownloader:
         except Exception:
             self._error = VIDEO_LINK_ERR_UNKNOWN_ERROR
 
-    def download(self, dir_path: str, progressbar: Progressbar, progressbar_label: Label) -> None:
+    def download(self, output_path: str, progressbar: Progressbar, progressbar_label: Label) -> None:
         try:
             self._progressbar = progressbar
             self._progressbar_label = progressbar_label
             mp4 = self._downloader.streams.filter(file_extension='mp4').first()
-            mp4.download(dir_path)
+            filename = self._rename_filename_if_exists(output_path, mp4.default_filename)
+            mp4.download(output_path=output_path, filename=filename)
         except Exception as e:
             print(e)
             print('error')
@@ -64,3 +66,15 @@ class YoutubeDownloader:
             self._progressbar['value'] = self._previous_progress
             self._progressbar_label['text'] = f'Downloaded data: {self._previous_progress}%'
             print(f'{self._previous_progress}%')
+
+    def _rename_filename_if_exists(self, path: str, default_filename: str) -> str:
+        filename = default_filename
+        original_filename, _, _ = filename.rpartition(".mp4")
+        index = 1
+        while os.path.exists(os.path.join(path, filename)):
+            filename_tmp, extension, _ = filename.rpartition(".mp4")
+            filename = f'{original_filename}({index}){extension}'
+            print(filename)
+            index += 1
+
+        return filename
